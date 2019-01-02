@@ -1,0 +1,809 @@
+/src/sys/sys/syscallvar.h:75
+/src/sys/sys/syscallvar.h:85
+/src/sys/sys/syscallvar.h:98
+/src/sys/sys/syscallvar.h:66
+/src/sys/sys/syscallvar.h:97
+/src/sys/kern/sys_generic.c:488
+/src/sys/kern/kern_condvar.c:179
+/src/sys/kern/kern_condvar.c:169
+/src/sys/kern/sys_generic.c:431
+/src/sys/arch/x86/x86/syscall.c:147
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./machine/cpu.h:78
+/src/sys/sys/userret.h:93
+/src/sys/sys/userret.h:94
+/src/sys/sys/syscallvar.h:75
+/src/sys/sys/syscallvar.h:86
+/src/sys/sys/syscallvar.h:64
+/src/sys/sys/syscallvar.h:65
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./machine/cpu.h:67
+/src/sys/arch/amd64/amd64/trap.c:278
+/src/sys/arch/amd64/amd64/trap.c:286
+/src/sys/arch/amd64/amd64/trap.c:289
+/src/sys/arch/amd64/amd64/trap.c:307
+/src/sys/arch/amd64/amd64/trap.c:307 (discriminator 2)
+/src/sys/arch/amd64/amd64/trap.c:315
+/src/sys/arch/amd64/amd64/trap.c:513
+/src/sys/arch/amd64/amd64/trap.c:518
+/src/sys/arch/amd64/amd64/trap.c:522
+/src/sys/arch/amd64/amd64/trap.c:535
+/src/sys/arch/amd64/amd64/trap.c:536
+/src/sys/arch/amd64/amd64/trap.c:544
+/src/sys/arch/amd64/amd64/trap.c:550
+/src/sys/uvm/uvm_aobj.c:1478
+/src/sys/uvm/uvm_aobj.c:1422 (discriminator 2)
+/src/sys/uvm/uvm_aobj.c:1460 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:1460 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:1439
+/src/sys/uvm/uvm_io.c:85
+/src/sys/uvm/uvm_km.c:385
+/src/sys/uvm/uvm_km.c:386
+/src/sys/uvm/uvm_km.c:389
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:391
+/src/sys/uvm/uvm_km.c:391
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:397
+/src/sys/uvm/uvm_km.c:391
+/src/sys/uvm/uvm_km.c:389 (discriminator 1)
+/src/sys/uvm/uvm_km.c:389 (discriminator 1)
+/src/sys/uvm/uvm_km.c:414
+/src/sys/uvm/uvm_aobj.c:1408 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:1408 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:1495 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:593
+/src/sys/uvm/uvm_aobj.c:639 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:621
+/src/sys/uvm/uvm_bio.c:833
+/src/sys/uvm/uvm_bio.c:836
+/src/sys/uvm/uvm_aobj.c:632
+/src/sys/uvm/uvm_bio.c:838
+/src/sys/uvm/uvm_aobj.c:385
+/src/sys/uvm/uvm_aobj.c:393
+/src/sys/uvm/uvm_aobj.c:629
+/src/sys/uvm/uvm_aobj.c:367
+/src/sys/uvm/uvm_aobj.c:367
+/src/sys/ufs/ufs/ufs_vnops.c:1111
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/ufs/ufs/ufs_vnops.c:1112
+/src/sys/ufs/ufs/ufs_vnops.c:1118
+/src/sys/ufs/ufs/ufs_vnops.c:1119
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1122
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1122
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1122
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1122
+/src/sys/ufs/ufs/ufs_vnops.c:1121 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1122
+/src/sys/uvm/uvm_aobj.c:1204
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_bio.c:842
+/src/sys/uvm/uvm_bio.c:842
+/src/sys/uvm/uvm_aobj.c:1228
+/src/sys/uvm/uvm_aobj.c:1260
+/src/sys/uvm/uvm_aobj.c:1302
+/src/sys/uvm/uvm_aobj.c:1303
+/src/sys/uvm/uvm_aobj.c:1317
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_aobj.c:1236
+/src/sys/uvm/uvm_aobj.c:1278
+/src/sys/uvm/uvm_aobj.c:1265
+/src/sys/arch/x86/x86/pmap.c:3051
+/src/sys/arch/x86/x86/pmap.c:3077
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/arch/x86/x86/pmap.c:3081
+/src/sys/arch/x86/x86/pmap.c:3086
+/src/sys/arch/x86/x86/pmap.c:2199
+/src/sys/arch/x86/x86/pmap.c:3142
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3220
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2244
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:3076
+/src/sys/uvm/uvm_aobj.c:1271
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_bio.c:859
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_aobj.c:1278
+/src/sys/uvm/uvm_aobj.c:1265
+/src/sys/arch/x86/x86/pmap.c:3051
+/src/sys/arch/x86/x86/pmap.c:3077
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/arch/x86/x86/pmap.c:3081
+/src/sys/arch/x86/x86/pmap.c:3086
+/src/sys/arch/x86/x86/pmap.c:2199
+/src/sys/arch/x86/x86/pmap.c:3142
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3220
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2244
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:3076
+/src/sys/uvm/uvm_aobj.c:1271
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_bio.c:859
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_aobj.c:1278
+/src/sys/uvm/uvm_aobj.c:1265
+/src/sys/arch/x86/x86/pmap.c:3051
+/src/sys/arch/x86/x86/pmap.c:3077
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/arch/x86/x86/pmap.c:3081
+/src/sys/arch/x86/x86/pmap.c:3086
+/src/sys/arch/x86/x86/pmap.c:2199
+/src/sys/arch/x86/x86/pmap.c:3142
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3220
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2244
+/src/sys/arch/x86/x86/pmap.c:2244
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:3076
+/src/sys/uvm/uvm_aobj.c:1265
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_aobj.c:1278
+/src/sys/uvm/uvm_aobj.c:1271
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_bio.c:859
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_aobj.c:1278
+/src/sys/uvm/uvm_aobj.c:1265
+/src/sys/arch/x86/x86/pmap.c:3051
+/src/sys/arch/x86/x86/pmap.c:3077
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/arch/x86/x86/pmap.c:3081
+/src/sys/arch/x86/x86/pmap.c:3086
+/src/sys/arch/x86/x86/pmap.c:2199
+/src/sys/arch/x86/x86/pmap.c:3142
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3187
+/src/sys/arch/x86/x86/pmap.c:3186 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:3220
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:3225
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2244
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:2212
+/src/sys/arch/x86/x86/pmap.c:3076
+/src/sys/uvm/uvm_aobj.c:1271
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_bio.c:859
+/src/sys/uvm/uvm_aobj.c:1266
+/src/sys/uvm/uvm_bio.c:859
+/src/sys/uvm/uvm_bio.c:860
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_bio.c:823
+/src/sys/uvm/uvm_bio.c:871
+/src/sys/uvm/uvm_bio.c:860 (discriminator 1)
+/src/sys/uvm/uvm_bio.c:663
+/src/sys/uvm/uvm_bio.c:670
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_bio.c:704 (discriminator 3)
+/src/sys/uvm/uvm_bio.c:525
+/src/sys/uvm/uvm_bio.c:525
+/src/sys/uvm/uvm_bio.c:533
+/src/sys/uvm/uvm_bio.c:540 (discriminator 3)
+/src/sys/uvm/uvm_bio.c:542 (discriminator 1)
+/src/sys/uvm/uvm_bio.c:542 (discriminator 3)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_bio.c:542 (discriminator 3)
+/src/sys/uvm/uvm_bio.c:536 (discriminator 1)
+/src/sys/uvm/uvm_bio.c:536 (discriminator 1)
+/src/sys/uvm/uvm_bio.c:578
+/src/sys/uvm/uvm_bio.c:583
+/src/sys/uvm/uvm_bio.c:585
+/src/sys/uvm/uvm_aobj.c:477
+/src/sys/uvm/uvm_aobj.c:732
+/src/sys/uvm/uvm_aobj.c:693
+/src/sys/uvm/uvm_aobj.c:742
+/src/sys/uvm/uvm_aobj.c:486
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_aobj.c:462
+/src/sys/uvm/uvm_aobj.c:425 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:425 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:784 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1407
+/src/sys/kern/subr_pool.c:2234
+/src/sys/kern/subr_pool.c:2240
+/src/sys/arch/x86/x86/x86_machdep.c:387
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/x86_machdep.c:397
+/src/sys/kern/subr_pool.c:2340
+/src/sys/kern/kern_auth.c:655
+/src/sys/kern/subr_pool.c:2246
+/src/sys/kern/subr_pool.c:2246
+/src/sys/kern/subr_pool.c:2215 (discriminator 1)
+/src/sys/kern/subr_pool.c:2215 (discriminator 1)
+/src/sys/kern/subr_pool.c:2210 (discriminator 1)
+/src/sys/kern/subr_pool.c:2236
+/src/sys/kern/subr_pool.c:2236 (discriminator 1)
+/src/sys/kern/subr_pool.c:2236 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1415
+/src/sys/ufs/ufs/ufs_vnops.c:1424
+/src/sys/ufs/ufs/ufs_vnops.c:1425
+/src/sys/ufs/ufs/ufs_vnops.c:1425 (discriminator 1)
+/src/sys/ufs/ufs/ufs_vnops.c:1425 (discriminator 2)
+/src/sys/ufs/ufs/ufs_vnops.c:1426
+/src/sys/uvm/uvm_aobj.c:432 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:432 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:554
+/src/sys/uvm/uvm_meter.c:117
+/src/sys/uvm/uvm_meter.c:183
+/src/sys/uvm/uvm_meter.c:123
+/src/sys/uvm/uvm_meter.c:125
+/src/sys/uvm/uvm_meter.c:126
+/src/sys/uvm/uvm_meter.c:128
+/src/sys/uvm/uvm_meter.c:128 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:128 (discriminator 3)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_meter.c:128 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:131 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:132 (discriminator 3)
+/src/sys/uvm/uvm_page.c:358
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:535
+/src/sys/kern/kern_lwp.c:535
+/src/sys/uvm/uvm_page.c:371
+/src/sys/uvm/uvm_page.c:384
+/src/sys/uvm/uvm_page.c:385 (discriminator 1)
+/src/sys/uvm/uvm_fault.c:529
+/src/sys/uvm/uvm_fault.c:313
+/src/sys/kern/subr_vmem.c:1324 (discriminator 1)
+/src/sys/kern/subr_vmem.c:1311
+/src/sys/kern/subr_vmem.c:1312
+/src/sys/kern/subr_vmem.c:1324 (discriminator 1)
+/src/sys/kern/subr_vmem.c:478
+/src/sys/kern/subr_vmem.c:478
+/src/sys/uvm/uvm_fault.c:341
+/src/sys/uvm/uvm_meter.c:133 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:133 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:134 (discriminator 3)
+/src/sys/uvm/uvm_meter.c:136
+/src/sys/uvm/uvm_meter.c:139
+/src/sys/uvm/uvm_meter.c:141
+/Udebug2: channel 0: window 998424 sent adjust 50152
+sers/siddharthmuralee/repos/src.export/sys/uvm/uvm_meter.c:142
+/src/sys/uvm/uvm_meter.c:145
+/src/sys/uvm/uvm_meter.c:154
+/src/sys/uvm/uvm_map.c:2820
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:535
+/src/sys/kern/kern_lwp.c:535
+/src/sys/uvm/uvm_map.c:2820 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2855
+/src/sys/uvm/uvm_map.c:2878
+/src/sys/uvm/uvm_map.c:2878
+/src/sys/uvm/uvm_map.c:2642
+/src/sys/uvm/uvm_map.c:2891 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2892
+/src/sys/uvm/uvm_map.c:2904
+/src/sys/uvm/uvm_map.c:2905
+/src/sys/uvm/uvm_map.c:2921
+/src/sys/uvm/uvm_map.c:798
+/src/sys/uvm/uvm_map.c:2750
+/src/sys/uvm/uvm_map.c:2766
+/src/sys/uvm/uvm_map.c:2766
+/src/sys/uvm/uvm_map.c:2873
+/src/sys/uvm/uvm_map.c:2758
+/src/sys/uvm/uvm_meter.c:183
+/src/sys/uvm/uvm_meter.c:189
+/src/sys/uvm/uvm_meter.c:189
+/src/sys/uvm/uvm_meter.c:81
+/src/sys/uvm/uvm_meter.c:186
+/src/sys/uvm/uvm_meter.c:187
+/src/sys/uvm/uvm_meter.c:188
+/src/sys/uvm/uvm_meter.c:188
+/src/sys/uvm/uvm_meter.c:188
+/src/sys/uvm/uvm_meter.c:158
+/src/sys/uvm/uvm_aobj.c:486
+/src/sys/ufs/ufs/ufs_vnops.c:1261
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/ufs/ufs/ufs_vnops.c:1262
+/src/sys/ufs/ufs/ufs_vnops.c:1275
+/src/sys/ufs/ufs/ufs_vnops.c:1272
+/src/sys/ufs/ufs/ufs_vnops.c:1281
+/src/sys/ufs/ufs/ufs_vnops.c:1293
+/src/sys/ufs/ufs/ufs_vnops.c:1293
+/src/sys/ufs/ufs/ufs_vnops.c:1294
+/src/sys/ufs/ufs/ufs_vnops.c:1292
+/src/sys/uvm/uvm_aobj.c:519
+/src/sys/uvm/uvm_bio.c:585
+/src/sys/uvm/uvm_bio.c:595 (discriminator 1)
+/src/sys/uvm/uvm_bio.c:410
+/src/sys/uvm/uvm_bio.c:615 (discriminator 2)
+/src/sys/uvm/uvm_aobj.c:975
+/src/sys/uvm/uvm_aobj.c:974
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_aobj.c:982 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:1007
+/src/sys/uvm/uvm_aobj.c:1010
+/src/sys/uvm/uvm_aobj.c:1165
+/src/sys/uvm/uvm_aobj.c:1168
+/src/sys/uvm/uvm_aobj.c:1041
+/src/sys/uvm/uvm_aobj.c:1045
+/src/sys/uvm/uvm_aobj.c:486
+/src/sys/uvm/uvm_aobj.c:486
+/src/sys/uvm/uvm_aobj.c:486
+/src/sys/uvm/uvm_aobj.c:986
+/src/sys/uvm/uvm_map.c:4843
+/src/sys/arch/x86/x86/pmap.c:4081
+/src/sys/arch/x86/x86/pmap.c:4082
+/src/sys/arch/x86/x86/pmap.c:4110
+/src/sys/arch/x86/x86/pmap.c:4110
+/src/sys/arch/x86/x86/pmap.c:4112
+/src/sys/arch/x86/x86/pmap.c:4112 (discriminator 2)
+/src/sys/arch/x86/x86/pmap.c:4121
+/src/sys/arch/x86/x86/pmap.c:4125
+/src/sys/arch/x86/x86/pmap.c:544
+/src/sys/arch/x86/x86/pmap.c:541 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:542 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:4133
+/src/sys/arch/x86/x86/pmap.c:4135
+/src/sys/arch/x86/x86/pmap.c:4144
+/src/sys/arch/x86/x86/pmap.c:4145
+/src/sys/arch/x86/x86/pmap.c:4148
+/src/sys/arch/x86/x86/pmap.c:1843
+/src/sys/arch/x86/x86/pmap.c:1843
+/src/sys/arch/x86/x86/pmap.c:4165
+/src/sys/uvm/uvm_map.c:1638
+/src/sys/uvm/uvm_page.c:1828
+/src/sys/uvm/uvm_page.c:1830
+/src/sys/uvm/uvm_page.c:1830
+/src/sys/uvm/uvm_page.c:1839
+/src/sys/uvm/uvm_page.c:1842
+/src/sys/uvm/uvm_page.c:1830
+/src/sys/uvm/uvm_map.c:1635
+/src/sys/uvm/uvm_page.c:1863
+/src/sys/uvm/uvm_page.c:1863
+/src/sys/uvm/uvm_page.c:1865
+/src/sys/uvm/uvm_page.c:1270 (discriminator 1)
+/src/sys/uvm/uvm_page.c:1270 (discriminator 1)
+/src/sys/uvm/uvm_page.c:1270 (discriminator 1)
+/src/sys/uvm/uvm_page.c:1865
+/src/sys/uvm/uvm_map.c:1645
+/src/sys/arch/x86/x86/pmap.c:4166
+/src/sys/arch/x86/x86/pmap.c:4166
+/src/sys/arch/x86/x86/pmap.c:4168
+/src/sys/arch/x86/x86/pmap.c:2094
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/src/sys/arch/x86/x86/pmap.c:653
+/src/sys/arch/x86/x86/pmap.c:643 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:643 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:643 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:657 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:658
+/src/sys/arch/x86/x86/pmap.c:658
+/src/sys/arch/x86/x86/pmap.c:2101
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/arch/x86/x86/pmap.c:2109
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2114
+/src/sys/arch/x86/x86/pmap.c:2114
+/src/sys/arch/x86/x86/pmap.c:2116
+/src/sys/uvm/uvm_mmap.c:357
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_mmap.c:362
+/src/sys/netipsec/key.c:6077 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2714
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6081
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:319
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/arch/x86/x86/pmap.c:2163
+/src/sys/arch/x86/x86/pmap.c:2109
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2114
+/src/sys/arch/x86/x86/pmap.c:2114
+/src/sys/arch/x86/x86/pmap.c:2116
+/src/sys/uvm/uvm_mmap.c:357
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_mmap.c:362
+/src/sys/netipsec/key.c:6077 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2714
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2714
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6081
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:319
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/arch/x86/x86/pmap.c:2102
+/src/sys/arch/x86/x86/pmap.c:2163
+/src/sys/arch/x86/x86/pmap.c:2109
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2114
+/src/sys/arch/x86/x86/pmap.c:2116
+/src/sys/uvm/uvm_mmap.c:357
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_mmap.c:362
+/src/sys/netipsec/key.c:6077 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2714
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/netipsec/key.c:6078 (discriminator 1)
+/src/sys/uvm/uvm_map.c:2802
+/src/sys/uvm/uvm_map.c:2714
+/src/sys/uvm/uvm_map.c:2715 (discriminator 1)
+/src/sys/netipsec/key.c:6081
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:366
+/src/sys/uvm/uvm_mmap.c:319
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:2104
+/src/sys/arch/x86/x86/pmap.c:2185
+/src/sys/arch/x86/x86/pmap.c:2125
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2167
+/src/sys/arch/x86/x86/pmap.c:2168
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2167
+/src/sys/arch/x86/x86/pmap.c:2168
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2124
+/src/sys/arch/x86/x86/pmap.c:2167
+/src/sys/arch/x86/x86/pmap.c:4196
+/src/sys/arch/x86/x86/pmap.c:4198
+/src/sys/arch/x86/x86/pmap.c:4200
+/src/sys/arch/x86/x86/pmap.c:521
+/src/sys/arch/x86/x86/pmap.c:524
+/src/sys/arch/x86/x86/pmap.c:507
+/src/sys/arch/x86/x86/pmap.c:4251
+/src/sys/arch/x86/x86/pmap.c:4251 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/arch/x86/x86/pmap.c:4251 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:4254
+/src/sys/arch/x86/x86/pmap.c:4254
+/src/sys/arch/x86/x86/pmap.c:4252
+/src/sys/arch/x86/x86/pmap.c:4260
+/src/sys/arch/x86/x86/pmap.c:4299
+/src/sys/arch/x86/x86/pmap.c:4100
+/src/sys/arch/x86/x86/pmap.c:1898
+/src/sys/arch/x86/x86/pmap.c:1898
+/src/sys/arch/x86/x86/pmap.c:1899
+/src/sys/arch/x86/x86/pmap.c:1900
+/src/sys/arch/x86/x86/pmap.c:1900
+/src/sys/arch/x86/x86/pmap.c:1903
+/src/sys/arch/x86/x86/pmap.c:1904
+/src/sys/arch/x86/x86/pmap.c:1906
+/src/sys/arch/x86/x86/pmap.c:4299
+/src/sys/arch/x86/x86/pmap.c:703 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:724
+/src/sys/arch/x86/x86/pmap.c:721 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:2840
+/src/sys/arch/x86/x86/pmap.c:2888
+/src/sys/arch/x86/x86/pmap.c:4299 (discriminator 1)
+/src/sys/arch/x86/x86/pmap.c:4311
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:4311
+/src/sys/arch/x86/x86/pmap.c:4314
+/src/sys/arch/x86/x86/pmap.c:2133
+/src/sys/arch/x86/x86/pmap.c:2138
+/src/sys/arch/x86/x86/pmap.c:3681
+/src/sys/uvm/uvm_aobj.c:1125
+/src/sys/uvm/uvm_aobj.c:425
+/src/sys/uvm/uvm_mremap.c:50
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_mremap.c:50
+/src/sys/uvm/uvm_mmap.c:1042
+/src/sys/uvm/uvm_mmap.c:1042
+/src/sys/uvm/uvm_mmap.c:1042
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/uvm/uvm_mmap.c:1042
+/src/sys/uvm/uvm_mremap.c:102
+/src/sys/uvm/uvm_mremap.c:230 (discriminator 1)
+/src/sys/uvm/uvm_page.c:285
+/src/sys/uvm/uvm_page.c:216
+/src/sys/uvm/uvm_page.c:274
+/src/sys/uvm/uvm_page.c:227
+/src/sys/uvm/uvm_aobj.c:427
+/src/sys/uvm/uvm_aobj.c:1131
+/src/sys/uvm/uvm_aobj.c:1103
+/src/sys/uvm/uvm_aobj.c:1142
+/src/sys/uvm/uvm_aobj.c:1142
+/src/sys/arch/x86/x86/pmap.c:4649 (discriminator 1)
+/src/sys/kern/kern_sig.c:2295
+/src/sys/kern/kern_sig.c:2311
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./machine/cpu.h:67
+/src/sys/arch/x86/x86/x86_tlb.c:367
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/kern/kern_sig.c:2301 (discriminator 1)
+/src/sys/arch/x86/x86/x86_tlb.c:365
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./machine/cpu.h:67
+/src/sys/kern/kern_softint.c:355
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:353
+/src/sys/kern/kern_softint.c:359
+/src/sys/kern/kern_softint.c:361
+/src/sys/arch/x86/x86/pmap.c:2495
+/src/sys/uvm/uvm_aobj.c:935
+/src/sys/uvm/uvm_aobj.c:1114
+/src/sys/uvm/uvm_aobj.c:412
+/src/sys/uvm/uvm_aobj.c:416
+/src/sys/uvm/uvm_aobj.c:416
+/src/sys/uvm/uvm_aobj.c:230
+/src/sys/uvm/uvm_aobj.c:233 (discriminator 1)
+/src/sys/uvm/uvm_aobj.c:235 (discriminator 3)
+/src/sys/uvm/uvm_aobj.c:424
+/src/sys/uvm/uvm_io.c:86
+/src/sys/uvm/uvm_aobj.c:534
+/src/sys/uvm/uvm_bio.c:598
+/src/sys/uvm/uvm_bio.c:877
+/src/sys/uvm/uvm_aobj.c:606
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./x86/pmap.h:438
+/src/sys/arch/amd64/amd64/trap.c:555
+/src/sys/arch/amd64/amd64/trap.c:555 (discriminator 1)
+/src/sys/arch/amd64/amd64/trap.c:559
+/src/sys/sys/userret.h:82
+/src/sys/sys/userret.h:93
+/src/sys/sys/userret.h:96
+/src/sys/arch/amd64/amd64/trap.c:703 (discriminator 1)
+/src/sys/sys/syscallvar.h:75
+/src/sys/sys/syscallvar.h:85
+/src/sys/sys/syscallvar.h:98
+/src/sys/sys/syscallvar.h:66
+/src/sys/sys/syscallvar.h:97
+/src/sys/kern/sys_generic.c:198
+/src/sys/kern/kern_condvar.c:179
+/src/sys/kern/kern_condvar.c:253
+/src/sys/kern/kern_condvar.c:169
+/src/sys/kern/kern_condvar.c:168
+/src/sys/kern/kern_condvar.c:168
+/src/sys/kern/kern_condvar.c:170
+/src/sys/kern/kern_condvar.c:169
+/src/sys/kern/kern_condvar.c:169
+/src/sys/kern/sys_generic.c:181
+/src/sys/kern/sys_generic.c:188
+/src/sys/kern/sys_generic.c:291
+/src/sys/kern/sys_generic.c:325
+/src/sys/kern/sys_generic.c:325
+/src/sys/kern/sys_generic.c:318
+/src/sys/kern/sys_generic.c:381
+/src/sys/kern/sys_generic.c:551
+/src/sys/kern/sys_generic.c:609
+/src/sys/kern/sys_generic.c:381
+/repos/obj1/sys/arch/amd64/compile/GENERIC/./machine/cpu.h:67
+/src/sys/kern/sys_generic.c:345
+/src/sys/kern/vfs_vnops.c:698
+/src/sys/kern/vfs_vnops.c:654
+/src/sys/kern/vfs_vnops.c:654
+/src/sys/kern/init_sysctl.c:1526
+/src/sys/kern/vnode_if.c:62
+/src/sys/kern/vnode_if.c:175
+/src/sys/miscfs/genfs/layer_vnops.c:626
+/src/sys/kern/vfs_vnode.c:1108
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/kern/vfs_vnode.c:1109
+/src/sys/kern/vfs_vnode.c:1111
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/vfs_vnode.c:1529
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:1548 (discriminator 1)
+/src/sys/kern/kern_lwp.c:536
+/src/sys/kern/kern_lwp.c:541
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/vfs_trans.c:267
+/src/sys/kern/vfs_vnode.c:1531
+/src/sys/miscfs/genfs/layer_vnops.c:642
+/src/sys/miscfs/genfs/layer_vnops.c:646
+/src/sys/miscfs/genfs/layer_vnops.c:647
+/src/sys/miscfs/genfs/layer_vnops.c:652
+/src/sys/kern/subr_devsw.c:299
+/src/sys/kern/subr_devsw.c:300
+/src/sys/kern/subr_devsw.c:231
+/src/sys/kern/subr_devsw.c:231
+/src/sys/kern/subr_devsw.c:285
+/src/sys/kern/kern_kthread.c:211
+/src/sys/kern/kern_kthread.c:196 (discriminator 1)
+/src/sys/kern/kern_ktrace.c:273
+/src/sys/kern/subr_devsw.c:285

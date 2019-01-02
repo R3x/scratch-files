@@ -1,0 +1,808 @@
+diff --git a/distrib/sets/lists/comp/mi b/distrib/sets/lists/comp/mi
+index dafb7169adca..9c29d709fdc4 100644
+--- a/distrib/sets/lists/comp/mi
++++ b/distrib/sets/lists/comp/mi
+@@ -605,6 +605,7 @@
+ ./usr/include/dev/iscsi/iscsi_ioctl.h		comp-c-include		iscsi
+ ./usr/include/dev/iscsi/iscsi_perf.h		comp-obsolete		obsolete
+ ./usr/include/dev/iscsi/iscsi_test.h		comp-obsolete		obsolete
++./usr/include/dev/kcov.h			comp-c-include
+ ./usr/include/dev/keylock.h			comp-c-include
+ ./usr/include/dev/kttcpio.h			comp-c-include
+ ./usr/include/dev/lockstat.h			comp-c-include
+diff --git a/distrib/sets/lists/man/mi b/distrib/sets/lists/man/mi
+index 050e28a3843e..2bbc05c86e7b 100644
+--- a/distrib/sets/lists/man/mi
++++ b/distrib/sets/lists/man/mi
+@@ -1373,6 +1373,7 @@
+ ./usr/share/man/cat4/jmide.0			man-sys-catman		.cat
+ ./usr/share/man/cat4/joy.0			man-sys-catman		.cat
+ ./usr/share/man/cat4/kame_ipsec.0		man-obsolete		obsolete
++./usr/share/man/cat4/kcov.0			man-sys-catman		.cat
+ ./usr/share/man/cat4/kloader.0			man-sys-catman		.cat
+ ./usr/share/man/cat4/kse.0			man-sys-catman		.cat
+ ./usr/share/man/cat4/ksyms.0			man-sys-catman		.cat
+@@ -4495,6 +4496,7 @@
+ ./usr/share/man/html4/jmide.html		man-sys-htmlman		html
+ ./usr/share/man/html4/joy.html			man-sys-htmlman		html
+ ./usr/share/man/html4/kame_ipsec.html		man-obsolete		obsolete
++./usr/share/man/html4/kcov.html		man-sys-htmlman		html
+ ./usr/share/man/html4/kloader.html		man-sys-htmlman		html
+ ./usr/share/man/html4/kse.html			man-sys-htmlman		html
+ ./usr/share/man/html4/ksyms.html		man-sys-htmlman		html
+@@ -7457,6 +7459,7 @@
+ ./usr/share/man/man4/jmide.4			man-sys-man		.man
+ ./usr/share/man/man4/joy.4			man-sys-man		.man
+ ./usr/share/man/man4/kame_ipsec.4		man-obsolete		obsolete
++./usr/share/man/man4/kcov.4			man-sys-man		.man
+ ./usr/share/man/man4/kloader.4			man-sys-man		.man
+ ./usr/share/man/man4/kse.4			man-sys-man		.man
+ ./usr/share/man/man4/ksyms.4			man-sys-man		.man
+diff --git a/distrib/sets/lists/tests/module.mi b/distrib/sets/lists/tests/module.mi
+index f53995fb99bb..a54af2e49e00 100644
+--- a/distrib/sets/lists/tests/module.mi
++++ b/distrib/sets/lists/tests/module.mi
+@@ -16,6 +16,7 @@
+ ./usr/tests/modules/k_uvm/k_uvm.kmod		tests-sys-tests		atf,rump
+ ./usr/tests/modules/t_abi_uvm			tests-sys-tests		atf,rump
+ ./usr/tests/modules/t_builtin			tests-sys-tests		atf,rump
++./usr/tests/modules/t_kcov			tests-sys-tests		atf,rump
+ ./usr/tests/modules/t_klua_pr_52864 		tests-sys-tests		atf,rump
+ ./usr/tests/modules/t_modctl			tests-sys-tests		atf,rump
+ ./usr/tests/modules/t_modload			tests-sys-tests		atf,rump
+diff --git a/etc/MAKEDEV.tmpl b/etc/MAKEDEV.tmpl
+index 222a3c820248..98e5236a8cfe 100644
+--- a/etc/MAKEDEV.tmpl
++++ b/etc/MAKEDEV.tmpl
+@@ -2214,6 +2214,10 @@ autofs)
+ 	mkdev autofs c %autofs_chr% 0 600
+ 	;;
+ 
++kcov)
++        mkdev kcov c %kcov_chr% 0
++        ;;
++
+ midevend)
+ %MI_DEVICES_END%
+ local)
+diff --git a/share/man/man4/Makefile b/share/man/man4/Makefile
+index 3c5aebbb60d8..649da621cb5d 100644
+--- a/share/man/man4/Makefile
++++ b/share/man/man4/Makefile
+@@ -36,7 +36,7 @@ MAN=	aac.4 ac97.4 acardide.4 aceride.4 acphy.4 \
+ 	irmce.4 isp.4 ismt.4 isv.4 itesio.4 iteide.4 iwi.4 iwm.4 iwn.4 ixg.4 \
+ 	ixpide.4 ixv.4 \
+ 	jme.4 jmide.4 joy.4 \
+-	kloader.4 kse.4 ksyms.4 kttcp.4 \
++	kcov.4 kloader.4 kse.4 ksyms.4 kttcp.4 \
+ 	l2tp.4 lc.4 ld.4 lii.4 lo.4 lua.4 lxtphy.4 \
+ 	mainbus.4 makphy.4 malo.4 mbe.4 mca.4 mcclock.4 md.4 mfb.4 \
+ 	mfi.4 mfii.4 mhzc.4 \
+diff --git a/share/man/man4/kcov.4 b/share/man/man4/kcov.4
+new file mode 100644
+index 000000000000..ff728bba75c5
+--- /dev/null
++++ b/share/man/man4/kcov.4
+@@ -0,0 +1,134 @@
++.\"	$NetBSD$
++.\"
++.\" Copyright (c) 2018 Anton Lindqvist <anton@openbsd.org>
++.\"
++.\" Permission to use, copy, modify, and distribute this software for any
++.\" purpose with or without fee is hereby granted, provided that the above
++.\" copyright notice and this permission notice appear in all copies.
++.\"
++.\" THE SOFTWARE IS PROVIDED "AS IS" AND THE AUTHOR DISCLAIMS ALL WARRANTIES
++.\" WITH REGARD TO THIS SOFTWARE INCLUDING ALL IMPLIED WARRANTIES OF
++.\" MERCHANTABILITY AND FITNESS. IN NO EVENT SHALL THE AUTHOR BE LIABLE FOR
++.\" ANY SPECIAL, DIRECT, INDIRECT, OR CONSEQUENTIAL DAMAGES OR ANY DAMAGES
++.\" WHATSOEVER RESULTING FROM LOSS OF USE, DATA OR PROFITS, WHETHER IN AN
++.\" ACTION OF CONTRACT, NEGLIGENCE OR OTHER TORTIOUS ACTION, ARISING OUT OF
++.\" OR IN CONNECTION WITH THE USE OR PERFORMANCE OF THIS SOFTWARE.
++.\"
++.Dd November 16, 2018
++.Dt KCOV 4
++.Os
++.Sh NAME
++.Nm kcov
++.Nd kernel code coverage tracing
++.Sh SYNOPSIS
++.Cd options KCOV
++.Pp
++.In dev/kcov.h
++.Sh DESCRIPTION
++The
++.Nm
++driver implements collection of code coverage inside the kernel.
++It can be enabled on a per process basis from userland,
++allowing the kernel program counter to be collected during syscalls triggered by
++the same process.
++The collected coverage can be accessed by mapping the device
++using
++.Xr mmap 2 .
++.Pp
++By default,
++.Nm
++is not enabled but requires the compile-time configuration
++.Cd options KCOV
++to be present,
++see
++.Xr options 4 .
++.Pp
++The following
++.Xr ioctl 2
++calls are provided:
++.Bl -tag -width 4n
++.It Dv KCOV_IOC_SETBUFSIZE Fa uint64_t *nentries
++Allocate a coverage buffer with a capacity of
++.Fa nentries .
++The buffer can be accessed using
++.Xr mmap 2
++whereas the returned pointer must be interpreted as an array of
++.Vt kcov_int_t
++entries.
++The first entry contains the number of entries in the array,
++excluding the first entry.
++.It Dv KCOV_IOC_ENABLE Fa void
++Enable code coverage tracing for the current thread.
++.It Dv KCOV_IOC_DISABLE Fa void
++Disable code coverage tracing for the current thread.
++.El
++.Sh FILES
++.Bl -tag -width /dev/kcov -compact
++.It Pa /dev/kcov
++Default device node.
++.El
++.Sh EXAMPLES
++In the following example,
++the
++.Xr read 2
++syscall is traced and the coverage displayed, which in turn can be passed to
++.Xr addr2line 1
++in order to translate the kernel program counter into the file name and line
++number it corresponds to.
++.Bd -literal
++#include <err.h>
++#include <fcntl.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++
++#include <sys/ioccom.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++
++#include <dev/kcov.h>
++
++int
++main(void)
++{
++	kcov_int_t *cover, i, n;
++	kcov_int_t size = 1024 * 100;
++	int fd;
++
++	fd = open("/dev/kcov", O_RDWR);
++	if (fd == -1)
++		err(1, "open");
++	if (ioctl(fd, KIOSETBUFSIZE, &size) == -1)
++		err(1, "ioctl: KIOSETBUFSIZE");
++	cover = mmap(NULL, size * sizeof(kcov_int_t),
++	    PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
++	if (cover == MAP_FAILED)
++		err(1, "mmap");
++	if (ioctl(fd, KCOV_IOC_ENABLE) == -1)
++		err(1, "ioctl: KCOV_IOC_ENABLE");
++	__atomic_store_n(&cover[0], 0, __ATOMIC_RELAXED);
++	read(-1, NULL, 0); /* syscall paths to be traced */
++	n = __atomic_load_n(&cover[0], __ATOMIC_RELAXED);
++	if (ioctl(fd, KCOV_IOC_DISABLE) == -1)
++		err(1, "ioctl: KCOV_IOC_DISABLE");
++	for (i = 0; i < cover[0]; i++)
++		printf("%p\en", (void *)cover[i + 1]);
++	if (munmap(cover, size * sizeof(kcov_int_t)) == -1)
++		err(1, "munmap");
++	close(fd);
++
++	return 0;
++}
++.Ed
++.Sh SEE ALSO
++.Xr options 4
++.Sh HISTORY
++The
++.Nm
++driver was initially developed in Linux. A driver based on the same concept
++was then implemented in
++.Ox
++and
++.Nx .
++.Sh AUTHORS
++.An Siddharth Muralee Aq Mt siddharth.muralee@gmail.com
+diff --git a/share/mk/bsd.sys.mk b/share/mk/bsd.sys.mk
+index d450eeb8790c..9ed6cf55d051 100644
+--- a/share/mk/bsd.sys.mk
++++ b/share/mk/bsd.sys.mk
+@@ -240,6 +240,14 @@ KLEAKFLAGS.${f}=	# empty
+ CFLAGS+=	${KLEAKFLAGS.${.IMPSRC:T}:U${KLEAKFLAGS}}
+ .endif
+ 
++.if ${KCOV:U0} > 0
++KCOVFLAGS=	-fsanitize-coverage=trace-pc	
++.for f in kcov.c
++KCOVFLAGS.${f}=		# empty
++.endfor
++CFLAGS+=	${KCOVFLAGS.${.IMPSRC:T}:U${KCOVFLAGS}}
++.endif
++
+ .if !defined(NOPIE) && (!defined(LDSTATIC) || ${LDSTATIC} != "-static")
+ # Position Independent Executable flags
+ PIE_CFLAGS?=        -fPIE
+diff --git a/sys/arch/amd64/conf/GENERIC b/sys/arch/amd64/conf/GENERIC
+index bcb8b0376b0f..aa392834d3f0 100644
+--- a/sys/arch/amd64/conf/GENERIC
++++ b/sys/arch/amd64/conf/GENERIC
+@@ -129,6 +129,10 @@ options 	KDTRACE_HOOKS	# kernel DTrace hooks
+ #makeoptions 	KLEAK=1
+ #options 	KLEAK
+ 
++# Kernel Code Coverage Driver.
++#makeoptions 	KCOV=1
++#options 	KCOV
++
+ # Compatibility options
+ # x86_64 never shipped with a.out binaries; the two options below are
+ # only relevant to 32-bit i386 binaries
+diff --git a/sys/conf/files b/sys/conf/files
+index c79d0a73057c..61e5b17013f7 100644
+--- a/sys/conf/files
++++ b/sys/conf/files
+@@ -31,6 +31,7 @@ defflag opt_diagnostic.h	_DIAGNOSTIC
+ defflag				GPROF
+ defflag				KASAN
+ defflag				KLEAK
++defflag				KCOV
+ 
+ defparam opt_copy_symtab.h	makeoptions_COPY_SYMTAB
+ 
+diff --git a/sys/conf/majors b/sys/conf/majors
+index 7b1c169eaf11..fad325aa543e 100644
+--- a/sys/conf/majors
++++ b/sys/conf/majors
+@@ -79,3 +79,4 @@ device-major qemufwcfg char 342		   qemufwcfg
+ device-major autofs    char 343		   autofs
+ device-major gpiopps   char 344            gpiopps
+ device-major nvmm      char 345            nvmm
++device-major kcov      char 346            kcov
+diff --git a/sys/conf/ssp.mk b/sys/conf/ssp.mk
+index 84733d719c7e..baef0a5bca2d 100644
+--- a/sys/conf/ssp.mk
++++ b/sys/conf/ssp.mk
+@@ -11,6 +11,7 @@ COPTS.cpu.c+=		-fno-stack-protector
+ .endif
+ 
+ COPTS.subr_kleak.c+=	-fno-stack-protector
++COPTS.kcov.c+=		-fno-stack-protector
+ 
+ # The following files use alloca(3) or variable array allocations.
+ # Their full name is noted as documentation.
+diff --git a/sys/dev/Makefile b/sys/dev/Makefile
+index 2bb2d9e3d025..cf11b0e3381d 100644
+--- a/sys/dev/Makefile
++++ b/sys/dev/Makefile
+@@ -18,7 +18,7 @@ SUBDIR+= iscsi
+ INCSDIR= /usr/include/dev
+ 
+ # Only install includes which are used by userland
+-INCS=	biovar.h ccdvar.h cgdvar.h fssvar.h keylock.h kttcpio.h lockstat.h \
+-	md.h vndvar.h spkrio.h
++INCS=	biovar.h ccdvar.h cgdvar.h fssvar.h kcov.h keylock.h kttcpio.h \
++	lockstat.h md.h vndvar.h spkrio.h
+ 
+ .include <bsd.kinc.mk>
+diff --git a/sys/dev/files.dev b/sys/dev/files.dev
+index 623d52c1e4d5..04a808e765eb 100644
+--- a/sys/dev/files.dev
++++ b/sys/dev/files.dev
+@@ -16,6 +16,7 @@ file	dev/dkwedge/dkwedge_rdb.c	dkwedge_method_rdb
+ file	dev/firmload.c			firmload
+ file	dev/fss.c			fss
+ file	dev/keylock.c			keylock
++file	dev/kcov.c			kcov
+ file	dev/lockstat.c			lockstat		needs-flag
+ file	dev/md.c			md
+ file	dev/mm.c			kern	# XXX
+diff --git a/sys/dev/kcov.c b/sys/dev/kcov.c
+new file mode 100644
+index 000000000000..691cc8f28525
+--- /dev/null
++++ b/sys/dev/kcov.c
+@@ -0,0 +1,292 @@
++/*      $NetBSD$        */
++
++/*
++ * Copyright (c) 2018 The NetBSD Foundation, Inc.
++ * All rights reserved.
++ *
++ * This code is derived from software contributed to The NetBSD Foundation
++ * by Siddharth Muralee.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
++ * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
++ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <sys/cdefs.h>
++
++#include <sys/param.h>
++#include <sys/systm.h>
++#include <sys/kernel.h>
++
++#include <sys/conf.h>
++#include <sys/kmem.h>
++#include <sys/module.h>
++#include <sys/queue.h>
++
++#include <uvm/uvm_extern.h>
++#include <dev/kcov.h>
++
++#define KCOV_BUF_MAX_ENTRIES	(256 << 10)
++
++/*
++ * The KCOV descriptor. One per proc, associated to only one LWP within
++ * the proc.
++ */
++typedef struct kcov_desc {
++	pid_t pid;
++	bool active;
++	bool exitfree;
++	kcov_int_t *buf;
++	size_t bufnent;
++	size_t bufsize;
++	TAILQ_ENTRY(kcov_desc) entry;
++} kcov_t;
++
++static TAILQ_HEAD(, kcov_desc) kd_list = TAILQ_HEAD_INITIALIZER(kd_list);
++
++static kcov_t *
++kcov_lookup_pid(pid_t pid)
++{
++	kcov_t *kd;
++
++	TAILQ_FOREACH(kd, &kd_list, entry) {
++		if (kd->pid == pid)
++			return kd;
++	}
++	return NULL;
++}
++
++static int
++kcov_allocbuf(kcov_t *kd, uint64_t nent)
++{
++	size_t size;
++
++	KASSERT(kd->buf == NULL);
++
++	if (nent == 0 || nent > KCOV_BUF_MAX_ENTRIES) {
++		return EINVAL;
++	}
++	if (kd->buf != NULL) {
++		kmem_free(kd->buf, kd->bufsize);
++		kd->buf = NULL;
++		kd->bufnent = 0;
++	}
++
++	size = roundup(nent * sizeof(kcov_int_t), PAGE_SIZE);
++	kd->buf = (kcov_int_t *)uvm_km_alloc(kernel_map, size, 0,
++	    UVM_KMF_WIRED|UVM_KMF_ZERO);
++	if (kd->buf == NULL)
++		return ENOMEM;
++
++	kd->bufnent = nent - 1;
++	kd->bufsize = size;
++
++	return 0;
++}
++
++static void
++kcov_free(kcov_t *kd)
++{
++	TAILQ_REMOVE(&kd_list, kd, entry);
++	if (kd->buf != NULL) {
++		uvm_km_free(kernel_map, (vaddr_t)kd->buf, kd->bufsize,
++		    UVM_KMF_WIRED);
++	}
++	kmem_free(kd, sizeof(*kd));
++}
++
++void
++kcov_exit(struct lwp *l)
++{
++	kcov_t *kd = l->l_kcov;
++
++	if (kd == NULL) {
++		return;
++	}
++	l->l_kcov = NULL;
++	kd->active = false;
++	__insn_barrier();
++	if (kd->exitfree) {
++		kcov_free(kd);
++	}
++}
++
++static int
++kcov_open(dev_t dev, int flag, int mode, struct lwp *l)
++{
++	kcov_t *kd;
++
++	if (kcov_lookup_pid(l->l_proc->p_pid) != NULL)
++		return EBUSY;
++
++	kd = kmem_zalloc(sizeof(*kd), KM_SLEEP);
++	kd->pid = l->l_proc->p_pid;
++	TAILQ_INSERT_TAIL(&kd_list, kd, entry);
++	return 0;
++}
++
++static int
++kcov_close(dev_t dev, int flag, int mode, struct lwp *l)
++{
++	kcov_t *kd;
++
++	kd = kcov_lookup_pid(l->l_proc->p_pid);
++	if (kd == NULL)
++		return EINVAL;
++
++	if (kd->active) {
++		/* Request free on exit. */
++		kd->exitfree = true;
++	} else {
++		kcov_free(kd);
++	}
++
++   	return 0;
++}
++
++static int
++kcov_ioctl(dev_t dev, u_long cmd, void *addr, int flag, struct lwp *l)
++{
++	int error = 0;
++	kcov_t *kd;
++
++	kd = kcov_lookup_pid(l->l_proc->p_pid);
++	if (kd == NULL)
++		return ENXIO;
++
++	switch (cmd) {
++	case KCOV_IOC_SETBUFSIZE:
++		if (kd->active)
++			return EBUSY;
++		error = kcov_allocbuf(kd, *((uint64_t *)addr));
++		break;
++	case KCOV_IOC_ENABLE:
++		if (kd->active)
++			return EBUSY;
++		if (kd->buf == NULL)
++			return ENOBUFS;
++		kd->active = true;
++		l->l_kcov = kd;
++		break;
++	case KCOV_IOC_DISABLE:
++		if (!kd->active)
++			return ENOENT;
++		if (l->l_kcov != kd)
++			return EPERM;
++		kd->active = false;
++		l->l_kcov = NULL;
++		break;
++	default:
++		error = EINVAL;
++	}
++
++	return error;
++}
++
++static paddr_t
++kcov_mmap(dev_t dev, off_t offset, int prot)
++{
++	kcov_t *kd;
++	paddr_t pa;
++	vaddr_t va;
++
++	kd = kcov_lookup_pid(curlwp->l_proc->p_pid);
++	if (kd == NULL) {
++		return (paddr_t)(-1);
++	}
++	if (offset < 0 || offset >= kd->bufnent * sizeof(kcov_int_t)) {
++		return (paddr_t)(-1);
++	}
++	va = (vaddr_t)kd->buf + offset;
++	if (!pmap_extract(pmap_kernel(), va, &pa)) {
++		return (paddr_t)(-1);
++	}
++
++	return atop(pa);
++}
++
++static inline bool
++in_interrupt(void)
++{
++	return curcpu()->ci_idepth >= 0;
++}
++
++void __sanitizer_cov_trace_pc(void);
++
++void
++__sanitizer_cov_trace_pc(void)
++{
++	extern int cold;
++	uint64_t idx;
++	kcov_t *kd;
++
++	if (__predict_false(cold)) {
++		/* Do not trace during boot. */
++		return;
++	}
++
++	if (in_interrupt()) {
++		/* Do not trace in interrupts. */
++		return;
++	}
++
++	kd = curlwp->l_kcov;
++	if (__predict_true(kd == NULL)) {
++		/* Not traced. */
++		return;
++	}
++
++	idx = kd->buf[0];
++	if (idx < kd->bufnent) {
++		kd->buf[idx+1] = (kcov_int_t)__builtin_return_address(0);
++		kd->buf[0]++;
++	}
++}
++
++/* -------------------------------------------------------------------------- */
++
++const struct cdevsw kcov_cdevsw = {
++	.d_open = kcov_open,
++	.d_close = kcov_close,
++	.d_read = noread,
++	.d_write = nowrite,
++	.d_ioctl = kcov_ioctl,
++	.d_stop = nostop,
++	.d_tty = notty,
++	.d_poll = nopoll,
++	.d_mmap = kcov_mmap,
++	.d_kqfilter = nokqfilter,
++	.d_discard = nodiscard,
++	.d_flag = D_OTHER
++};
++
++MODULE(MODULE_CLASS_MISC, kcov, NULL);
++
++static int
++kcov_modcmd(modcmd_t cmd, void *arg)
++{
++   	switch (cmd) {
++	case MODULE_CMD_INIT:
++	case MODULE_CMD_FINI:
++		return 0;
++	default:
++		return ENOTTY;
++	}
++}
+diff --git a/sys/dev/kcov.h b/sys/dev/kcov.h
+new file mode 100644
+index 000000000000..f891b3f437d8
+--- /dev/null
++++ b/sys/dev/kcov.h
+@@ -0,0 +1,46 @@
++/*      $NetBSD$        */
++
++/*
++ * Copyright (c) 2018 The NetBSD Foundation, Inc.
++ * All rights reserved.
++ *
++ * This code is derived from software contributed to The NetBSD Foundation
++ * by Siddharth Muralee.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
++ * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
++ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#ifndef _KCOV_H_
++#define _KCOV_H_
++
++#define KCOV_IOC_SETBUFSIZE	_IOW('K', 1, uint64_t)
++#define KCOV_IOC_ENABLE		_IO('K', 2)
++#define KCOV_IOC_DISABLE	_IO('K', 3)
++
++typedef uint64_t kcov_int_t;
++
++#ifdef _KERNEL
++void kcov_exit(struct lwp *);
++#endif
++
++#endif /* !_KCOV_H_ */
++
+diff --git a/sys/kern/kern_lwp.c b/sys/kern/kern_lwp.c
+index b05c3cfdfd55..f11422fa2dda 100644
+--- a/sys/kern/kern_lwp.c
++++ b/sys/kern/kern_lwp.c
+@@ -216,6 +216,7 @@ __KERNEL_RCSID(0, "$NetBSD: kern_lwp.c,v 1.195 2018/11/26 17:18:01 skrll Exp $")
+ #include "opt_ddb.h"
+ #include "opt_lockdebug.h"
+ #include "opt_dtrace.h"
++#include "opt_kcov.h"
+ 
+ #define _LWP_API_PRIVATE
+ 
+@@ -245,6 +246,10 @@ __KERNEL_RCSID(0, "$NetBSD: kern_lwp.c,v 1.195 2018/11/26 17:18:01 skrll Exp $")
+ #include <uvm/uvm_extern.h>
+ #include <uvm/uvm_object.h>
+ 
++#ifdef KCOV
++#include <dev/kcov.h>
++#endif
++
+ static pool_cache_t	lwp_cache	__read_mostly;
+ struct lwplist		alllwp		__cacheline_aligned;
+ 
+@@ -1066,6 +1071,10 @@ lwp_exit(struct lwp *l)
+ 		mutex_exit(proc_lock);
+ 	}
+ 
++#if NKCOV > 0
++	kcov_exit(l);
++#endif
++
+ 	/*
+ 	 * If we are the last live LWP in a process, we need to exit the
+ 	 * entire process.  We do so with an exit status of zero, because
+diff --git a/sys/sys/lwp.h b/sys/sys/lwp.h
+index dea84cc8fb93..37bcd4cdf507 100644
+--- a/sys/sys/lwp.h
++++ b/sys/sys/lwp.h
+@@ -201,6 +201,8 @@ struct lwp {
+ 	uint32_t	l_syscall_time;	/* !: time epoch for current syscall */
+ 	uint64_t	*l_syscall_counter; /* !: counter for current process */
+ 
++	void		*l_kcov; /* !: kcov-specific data */
++
+ 	struct kdtrace_thread *l_dtrace; /* (: DTrace-specific data. */
+ };
+ 
+diff --git a/tests/modules/Makefile b/tests/modules/Makefile
+index 8ad317baa49c..f45312d5359d 100644
+--- a/tests/modules/Makefile
++++ b/tests/modules/Makefile
+@@ -12,6 +12,7 @@ CPPFLAGS+=	-D_KERNTYPES
+ # Atffile into it.
+ TESTS_C=	t_modctl
+ TESTS_C+=	t_builtin
++TESTS_C+=	t_kcov
+ LDADD=		-lprop
+ LDADD+=		-lrumpfs_kernfs -lrumpvfs -lrump -lrumpuser -lrump -lpthread
+ 
+diff --git a/tests/modules/t_kcov.c b/tests/modules/t_kcov.c
+new file mode 100644
+index 000000000000..7a269024ba26
+--- /dev/null
++++ b/tests/modules/t_kcov.c
+@@ -0,0 +1,80 @@
++/* $NetBSD$ */
++
++/*
++ * Copyright (c) 2018 The NetBSD Foundation, Inc.
++ * All rights reserved.
++ *
++ * This code is derived from software contributed to The NetBSD Foundation
++ * by Siddharth Muralee.
++ *
++ * Redistribution and use in source and binary forms, with or without
++ * modification, are permitted provided that the following conditions
++ * are met:
++ * 1. Redistributions of source code must retain the above copyright
++ *    notice, this list of conditions and the following disclaimer.
++ * 2. Redistributions in binary form must reproduce the above copyright
++ *    notice, this list of conditions and the following disclaimer in the
++ *    documentation and/or other materials provided with the distribution.
++ *
++ * THIS SOFTWARE IS PROVIDED BY THE NETBSD FOUNDATION, INC. AND CONTRIBUTORS
++ * ``AS IS'' AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED
++ * TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR
++ * PURPOSE ARE DISCLAIMED.  IN NO EVENT SHALL THE FOUNDATION OR CONTRIBUTORS
++ * BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR
++ * CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF
++ * SUBSTITUTE GOODS OR SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS
++ * INTERRUPTION) HOWEVER CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN
++ * CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE)
++ * ARISING IN ANY WAY OUT OF THE USE OF THIS SOFTWARE, EVEN IF ADVISED OF THE
++ * POSSIBILITY OF SUCH DAMAGE.
++ */
++
++#include <atf-c.h>
++
++#include <err.h>
++#include <fcntl.h>
++#include <stdio.h>
++#include <stdlib.h>
++#include <unistd.h>
++
++#include <sys/ioccom.h>
++#include <sys/ioctl.h>
++#include <sys/mman.h>
++
++#include <dev/kcov.h>
++
++ATF_TC(kcov1);
++
++ATF_TC_HEAD(kcov1, tc)
++{
++	atf_tc_set_md_var(tc, "descr", "Checking if KCOV works properly");
++}
++
++ATF_TC_BODY(kcov1, tc)
++{
++	kcov_int_t *cover, n;
++	kcov_int_t size = 1024 * 100;
++	int fd;
++
++	fd = open("/dev/kcov", O_RDWR);
++	ATF_REQUIRE(fd != -1);
++	ATF_REQUIRE(ioctl(fd, KCOV_IOC_SETBUFSIZE, &size) != -1);
++	cover = mmap(NULL, size * sizeof(kcov_int_t),
++	    PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
++	ATF_REQUIRE(cover != MAP_FAILED);
++	ATF_REQUIRE(ioctl(fd, KCOV_IOC_ENABLE) != -1);
++	__atomic_store_n(&cover[0], 0, __ATOMIC_RELAXED);
++	read(-1, NULL, 0); /* syscall paths to be traced */
++	n = __atomic_load_n(&cover[0], __ATOMIC_RELAXED);
++	ATF_REQUIRE(ioctl(fd, KCOV_IOC_DISABLE) != -1);
++	ATF_CHECK(n > 0);
++	ATF_REQUIRE(munmap(cover, size * sizeof(kcov_int_t)) != -1);
++	close(fd);
++}
++
++ATF_TP_ADD_TCS(tp)
++{
++	ATF_TP_ADD_TC(tp, kcov1);
++
++	return atf_no_error();
++}
