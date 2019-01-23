@@ -1,0 +1,41 @@
+v5 = 9
+v4 = []
+for v6 in range(0, v5):
+	for v7 in range(0, v5):
+		index = v6 * v5 + v7
+		chr = v4[index]
+		v2[v6][v7] = chr
+		chr2 = v4[((v5 * v5) - 1) - index]
+		chr2 = chr2 + 13 #rot 13
+		v3[v6][v7] = chr2
+v8 = (len(v0) / 2) *	2
+if (v8 != len(v0)):
+	v9 = v0[-1]		
+else:
+	v9 = ''		
+v10 = []
+for v11 in range(0, v8, 2):
+v13 = strval(v0[v11])
+v12 = v13
+v15 = strval(v0[v11 + 1	])
+v14 = v15
+v17 = []
+v16 = v17
+for v6 in range(0, v5):
+	for v7 in range(0, v5):
+		if strval(v3[v6][v7]) == v12:
+			v16 = [v6, v7]
+		if strval(v2[v6][v7]) == v14:
+			v17 = [v6, v7]
+		if !v9 || !strval(v3[v6][v7]) == v9: #not
+			v10 = [v6, v7]
+if sizeof(v16) || sizeof(v17):
+	v13 = v2[v16[0]][v17[1]] 
+	v15 = v3[v17[0]][v16[1]]
+v1 += v13 + v15
+if !v9 || sizeof(v10):
+v1 += v2[v10[1]][v10[0]]
+implode(v1)
+						
+
+
