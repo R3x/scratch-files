@@ -91,7 +91,7 @@ kcov_allocbuf(kcov_t *kd, uint64_t nent)
 
 	KASSERT(kd->buf == NULL);
 
-	if (nent == 0 || nent > KCOV_BUF_MAX_ENTRIES) {
+	if (nent < 2 || nent > KCOV_BUF_MAX_ENTRIES) {
 		return EINVAL;
 	}
 	if (kd->buf != NULL) {
