@@ -13,10 +13,10 @@ index 3e9e7391..b7fdb166 100644
  	}
 diff --git a/pkg/build/netbsd.go b/pkg/build/netbsd.go
 new file mode 100644
-index 00000000..8906a4eb
+index 00000000..48520eae
 --- /dev/null
 +++ b/pkg/build/netbsd.go
-@@ -0,0 +1,59 @@
+@@ -0,0 +1,65 @@
 +// Copyright 2018 syzkaller project authors. All rights reserved.
 +// Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
 +
@@ -38,27 +38,33 @@ index 00000000..8906a4eb
 +	cmdlineFile, sysctlFile string, config []byte) error {
 +	const kernelName = "GENERIC_SYZKALLER"
 +	confDir := fmt.Sprintf("%v/sys/arch/%v/conf", kernelDir, targetArch)
-+	compileDir := fmt.Sprintf("%v/sys/arch/%v/compile/%v", kernelDir, targetArch, kernelName)
++	compileDir := fmt.Sprintf("%v/sys/arch/%v/compile/obj/%v", kernelDir, targetArch, kernelName)
 +
-+	if err := osutil.WriteFile(filepath.Join(confDir, kernelName), config); err != nil {
++	// Compile the kernel with KASAN
++	conf := []byte(`
++	include "arch/amd64/conf/GENERIC"
++	makeoptions    KASAN=1
++	options    KASAN
++	no options SVS
++	`)
++
++	if err := osutil.WriteFile(filepath.Join(confDir, kernelName), conf); err != nil {
 +		return err
 +	}
 +
 +	// Build tools before building kernel
-+	if _, err := osutil.RunCmd(100*time.Minute, kernelDir, "./build.sh", "-m", targetArch, "-U", "-j"+strconv.Itoa(runtime.NumCPU())	, "tools"); err != nil {
-+			return err
++	if _, err := osutil.RunCmd(10*time.Minute, kernelDir, "./build.sh", "-m", targetArch, "-U", "-j"+strconv.Itoa(runtime.NumCPU()), "tools"); err != nil {
++		return err
 +	}
 +
 +	// Build kernel
-+	if _, err := osutil.RunCmd(100*time.Minute, kernelDir, "./build.sh", "-m", targetArch, "-U", "-j"+strconv.Itoa(runtime.NumCPU()), "kernel="+kernelName); err != nil {
-+			return err
++	if _, err := osutil.RunCmd(10*time.Minute, kernelDir, "./build.sh", "-m", targetArch, "-U", "-j"+strconv.Itoa(runtime.NumCPU()), "kernel="+kernelName); err != nil {
++		return err
 +	}
 +
 +	for _, s := range []struct{ dir, src, dst string }{
 +		{compileDir, "netbsd", "kernel"},
 +		{compileDir, "netbsd.gdb", "netbsd.gdb"},
-+		{userspaceDir, "image", "image"},
-+		{userspaceDir, "key", "key"},
 +	} {
 +		fullSrc := filepath.Join(s.dir, s.src)
 +		fullDst := filepath.Join(outputDir, s.dst)
@@ -76,64 +82,16 @@ index 00000000..8906a4eb
 +	// machine.
 +	return nil
 +}
-diff --git a/pkg/vcs/netbsd.go b/pkg/vcs/netbsd.go
-new file mode 100644
-index 00000000..dc3a7d0a
---- /dev/null
-+++ b/pkg/vcs/netbsd.go
-@@ -0,0 +1,55 @@
-+// Copyright 2018 syzkaller project authors. All rights reserved.
-+// Use of this source code is governed by Apache 2 LICENSE that can be found in the LICENSE file.
-+
-+package vcs
-+
-+import (
-+	"fmt"
-+	"io"
-+)
-+
-+type netbsd struct {
-+	git *git
-+}
-+
-+func newnetbsd(vm, dir string) *netbsd {
-+	return &netbsd{
-+		git: newGit(dir),
-+	}
-+}
-+
-+func (ctx *netbsd) Poll(repo, branch string) (*Commit, error) {
-+	return ctx.git.Poll(repo, branch)
-+}
-+
-+func (ctx *netbsd) CheckoutBranch(repo, branch string) (*Commit, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
-+
-+func (ctx *netbsd) CheckoutCommit(repo, commit string) (*Commit, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
-+
-+func (ctx *netbsd) SwitchCommit(commit string) (*Commit, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
-+
-+func (ctx *netbsd) HeadCommit() (*Commit, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
-+
-+func (ctx *netbsd) ListRecentCommits(baseCommit string) ([]string, error) {
-+	return ctx.git.ListRecentCommits(baseCommit)
-+}
-+
-+func (ctx *netbsd) ExtractFixTagsFromCommits(baseCommit, email string) ([]FixCommit, error) {
-+	return ctx.git.ExtractFixTagsFromCommits(baseCommit, email)
-+}
-+
-+func (ctx *netbsd) Bisect(bad, good string, trace io.Writer, pred func() (BisectResult, error)) (*Commit, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
-+
-+func (ctx *netbsd) PreviousReleaseTags(commit string) ([]string, error) {
-+	return nil, fmt.Errorf("not implemented for netbsd")
-+}
+diff --git a/sys/targets/targets.go b/sys/targets/targets.go
+index 60c407cc..f2784640 100644
+--- a/sys/targets/targets.go
++++ b/sys/targets/targets.go
+@@ -311,7 +311,7 @@ var oses = map[string]osCommon{
+ 		SyscallPrefix:          "SYS_",
+ 		ExecutorUsesShmem:      true,
+ 		ExecutorUsesForkServer: true,
+-		KernelObject:           "vmlinux",
++		KernelObject:           "netbsd.gdb",
+ 		CPP:                    "cpp",
+ 	},
+ 	"openbsd": {
