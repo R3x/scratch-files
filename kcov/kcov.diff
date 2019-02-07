@@ -382,7 +382,7 @@ index b05c3cfdfd55..bdd4988f4a72 100644
  	 * entire process.  We do so with an exit status of zero, because
 diff --git a/sys/kern/subr_kcov.c b/sys/kern/subr_kcov.c
 new file mode 100644
-index 000000000000..e09b1b1cf8a6
+index 000000000000..1dd2655b1acf
 --- /dev/null
 +++ b/sys/kern/subr_kcov.c
 @@ -0,0 +1,357 @@
@@ -443,7 +443,7 @@ index 000000000000..e09b1b1cf8a6
 +	pid_t pid;
 +	bool active;
 +	bool exitfree;
-+	kcov_int_t *buf;
++	volatile kcov_int_t *buf;
 +	size_t bufnent;
 +	size_t bufsize;
 +	TAILQ_ENTRY(kcov_desc) entry;
@@ -483,7 +483,7 @@ index 000000000000..e09b1b1cf8a6
 +		return EINVAL;
 +	}
 +	if (kd->buf != NULL) {
-+		kmem_free(kd->buf, kd->bufsize);
++		kmem_free(__UNVOLATILE(kd->buf), kd->bufsize);
 +		kd->buf = NULL;
 +		kd->bufnent = 0;
 +	}
@@ -811,14 +811,27 @@ index 000000000000..f9d1f44ab931
 +#endif /* !_KCOV_H_ */
 +
 diff --git a/sys/sys/lwp.h b/sys/sys/lwp.h
-index dea84cc8fb93..37bcd4cdf507 100644
+index dea84cc8fb93..53bdd8d8a905 100644
 --- a/sys/sys/lwp.h
 +++ b/sys/sys/lwp.h
-@@ -201,6 +201,8 @@ struct lwp {
+@@ -48,6 +48,10 @@
+ #include <sys/syncobj.h>
+ #include <sys/resource.h>
+ 
++#ifdef _KERNEL_OPT
++#include "opt_kcov.h"
++#endif
++
+ #if defined(_KERNEL)
+ struct lwp;
+ /* forward declare this for <machine/cpu.h> so it can get l_cpu. */
+@@ -201,6 +205,10 @@ struct lwp {
  	uint32_t	l_syscall_time;	/* !: time epoch for current syscall */
  	uint64_t	*l_syscall_counter; /* !: counter for current process */
  
-+	void		*l_kcov; /* !: kcov-specific data */
++#ifdef KCOV
++	void		*l_kcov; /* !: kcov-specific data */	
++#endif
 +
  	struct kdtrace_thread *l_dtrace; /* (: DTrace-specific data. */
  };
@@ -837,7 +850,7 @@ index 8ad317baa49c..f45312d5359d 100644
  
 diff --git a/tests/modules/t_kcov.c b/tests/modules/t_kcov.c
 new file mode 100644
-index 000000000000..e38405d58081
+index 000000000000..b3476ab5c61b
 --- /dev/null
 +++ b/tests/modules/t_kcov.c
 @@ -0,0 +1,317 @@
@@ -884,7 +897,7 @@ index 000000000000..e38405d58081
 +
 +#include <atf-c.h>
 +
-+#define PAGE_SIZE 4096
++#define PAGE_SIZE sysconf(_SC_PAGESIZE) 
 +
 +static int
 +open_kcov(void)
