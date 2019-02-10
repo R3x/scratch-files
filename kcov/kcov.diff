@@ -80,7 +80,7 @@ index 3c5aebbb60d8..649da621cb5d 100644
  	mfi.4 mfii.4 mhzc.4 \
 diff --git a/share/man/man4/kcov.4 b/share/man/man4/kcov.4
 new file mode 100644
-index 000000000000..b0b9ea07b10f
+index 000000000000..d3763d540531
 --- /dev/null
 +++ b/share/man/man4/kcov.4
 @@ -0,0 +1,135 @@
@@ -187,7 +187,7 @@ index 000000000000..b0b9ea07b10f
 +		err(1, "open");
 +	if (ioctl(fd, KCOV_IOC_SETBUFSIZE, &size) == -1)
 +		err(1, "ioctl: KCOV_IOC_SETBUFSIZE");
-+	cover = mmap(NULL, size * sizeof(kcov_int_t),
++	cover = mmap(NULL, size * KCOV_ENTRY_SIZE,
 +	    PROT_READ | PROT_WRITE, MAP_PRIVATE, fd, 0);
 +	if (cover == MAP_FAILED)
 +		err(1, "mmap");
@@ -200,7 +200,7 @@ index 000000000000..b0b9ea07b10f
 +		err(1, "ioctl: KCOV_IOC_DISABLE");
 +	for (i = 0; i < cover[0]; i++)
 +		printf("%p\en", (void *)cover[i + 1]);
-+	if (munmap(cover, size * sizeof(kcov_int_t)) == -1)
++	if (munmap(cover, size * KCOV_ENTRY_SIZE) == -1)
 +		err(1, "munmap");
 +	close(fd);
 +
@@ -382,7 +382,7 @@ index b05c3cfdfd55..bdd4988f4a72 100644
  	 * entire process.  We do so with an exit status of zero, because
 diff --git a/sys/kern/subr_kcov.c b/sys/kern/subr_kcov.c
 new file mode 100644
-index 000000000000..1dd2655b1acf
+index 000000000000..034fc999ab6c
 --- /dev/null
 +++ b/sys/kern/subr_kcov.c
 @@ -0,0 +1,357 @@
@@ -443,7 +443,7 @@ index 000000000000..1dd2655b1acf
 +	pid_t pid;
 +	bool active;
 +	bool exitfree;
-+	volatile kcov_int_t *buf;
++	volatile kcov_int_t *buf; // To prevent race conditions
 +	size_t bufnent;
 +	size_t bufsize;
 +	TAILQ_ENTRY(kcov_desc) entry;
@@ -488,7 +488,7 @@ index 000000000000..1dd2655b1acf
 +		kd->bufnent = 0;
 +	}
 +
-+	size = roundup(nent * sizeof(kcov_int_t), PAGE_SIZE);
++	size = roundup(nent * KCOV_ENTRY_SIZE, PAGE_SIZE);
 +	kd->buf = (kcov_int_t *)uvm_km_alloc(kernel_map, size, 0,
 +	    UVM_KMF_WIRED|UVM_KMF_ZERO);
 +	if (kd->buf == NULL)
@@ -664,7 +664,7 @@ index 000000000000..1dd2655b1acf
 +	if (kd == NULL) {
 +		return (paddr_t)-1;
 +	}
-+	if (offset < 0 || offset >= kd->bufnent * sizeof(kcov_int_t) || offset & PAGE_MASK) {
++	if (offset < 0 || offset >= kd->bufnent * KCOV_ENTRY_SIZE || offset & PAGE_MASK) {
 +		return (paddr_t)-1;
 +	}
 +	va = (vaddr_t)kd->buf + offset;
@@ -758,10 +758,10 @@ index 0232e39170c1..011c0026963d 100644
  	mman.h module.h mount.h mqueue.h msg.h msgbuf.h mtio.h mutex.h \
 diff --git a/sys/sys/kcov.h b/sys/sys/kcov.h
 new file mode 100644
-index 000000000000..f9d1f44ab931
+index 000000000000..c599abcafd65
 --- /dev/null
 +++ b/sys/sys/kcov.h
-@@ -0,0 +1,48 @@
+@@ -0,0 +1,49 @@
 +/*      $NetBSD$        */
 +
 +/*
@@ -801,6 +801,7 @@ index 000000000000..f9d1f44ab931
 +#define KCOV_IOC_DISABLE	_IO('K', 3)
 +
 +typedef uint64_t kcov_int_t;
++#define KCOV_ENTRY_SIZE sizeof(kcov_int_t)
 +
 +#ifdef _KERNEL
 +void kcov_exit(struct lwp *);
@@ -850,7 +851,7 @@ index 8ad317baa49c..f45312d5359d 100644
  
 diff --git a/tests/modules/t_kcov.c b/tests/modules/t_kcov.c
 new file mode 100644
-index 000000000000..b3476ab5c61b
+index 000000000000..1b1ac59d0ec2
 --- /dev/null
 +++ b/tests/modules/t_kcov.c
 @@ -0,0 +1,317 @@
@@ -931,7 +932,7 @@ index 000000000000..b3476ab5c61b
 +{
 +	void *data;
 +	int fd;
-+	kcov_int_t size = 2 * PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = 2 * PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +
@@ -953,7 +954,7 @@ index 000000000000..b3476ab5c61b
 +ATF_TC_BODY(kcov_mmap_no_munmap, tc)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +
@@ -969,7 +970,7 @@ index 000000000000..b3476ab5c61b
 +ATF_TC_BODY(kcov_mmap_no_munmap_no_close, tc)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +
@@ -985,7 +986,7 @@ index 000000000000..b3476ab5c61b
 +kcov_mmap_enable_thread(void *data)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +	*(int *)data = fd;
@@ -1021,7 +1022,7 @@ index 000000000000..b3476ab5c61b
 +ATF_TC_BODY(kcov_enable, tc)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +
@@ -1051,7 +1052,7 @@ index 000000000000..b3476ab5c61b
 +ATF_TC_BODY(kcov_enable_no_disable, tc)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +	
 +	fd = open_kcov();
 +	ATF_REQUIRE(ioctl(fd, KCOV_IOC_SETBUFSIZE, &size) ==0);
@@ -1063,7 +1064,7 @@ index 000000000000..b3476ab5c61b
 +ATF_TC_BODY(kcov_enable_no_disable_no_close, tc)
 +{
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +	ATF_REQUIRE(ioctl(fd, KCOV_IOC_SETBUFSIZE, &size) ==0);
@@ -1075,7 +1076,7 @@ index 000000000000..b3476ab5c61b
 +{
 +	void *data;
 +	int fd;
-+	kcov_int_t size = PAGE_SIZE / sizeof(kcov_int_t);
++	kcov_int_t size = PAGE_SIZE / KCOV_ENTRY_SIZE;
 +
 +	fd = open_kcov();
 +
