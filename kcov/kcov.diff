@@ -80,7 +80,7 @@ index 3c5aebbb60d8..649da621cb5d 100644
  	mfi.4 mfii.4 mhzc.4 \
 diff --git a/share/man/man4/kcov.4 b/share/man/man4/kcov.4
 new file mode 100644
-index 000000000000..d3763d540531
+index 000000000000..3a26e96d3348
 --- /dev/null
 +++ b/share/man/man4/kcov.4
 @@ -0,0 +1,135 @@
@@ -141,7 +141,7 @@ index 000000000000..d3763d540531
 +.Xr mmap 2
 +whereas the returned pointer must be interpreted as an array of
 +.Vt kcov_int_t
-+entries.
++entries. Note that kcov_int_t is volatile.
 +The first entry contains the number of entries in the array,
 +excluding the first entry.
 +.It Dv KCOV_IOC_ENABLE Fa void
@@ -275,31 +275,17 @@ index 7b1c169eaf11..fad325aa543e 100644
  device-major nvmm      char 345            nvmm
 +device-major kcov      char 346            kcov
 diff --git a/sys/conf/ssp.mk b/sys/conf/ssp.mk
-index 84733d719c7e..baef0a5bca2d 100644
+index 84733d719c7e..775c6b2fd195 100644
 --- a/sys/conf/ssp.mk
 +++ b/sys/conf/ssp.mk
 @@ -11,6 +11,7 @@ COPTS.cpu.c+=		-fno-stack-protector
  .endif
  
  COPTS.subr_kleak.c+=	-fno-stack-protector
-+COPTS.kcov.c+=		-fno-stack-protector
++COPTS.subr_kcov.c+=		-fno-stack-protector
  
  # The following files use alloca(3) or variable array allocations.
  # Their full name is noted as documentation.
-diff --git a/sys/dev/Makefile b/sys/dev/Makefile
-index 2bb2d9e3d025..a24a8055afee 100644
---- a/sys/dev/Makefile
-+++ b/sys/dev/Makefile
-@@ -18,7 +18,7 @@ SUBDIR+= iscsi
- INCSDIR= /usr/include/dev
- 
- # Only install includes which are used by userland
--INCS=	biovar.h ccdvar.h cgdvar.h fssvar.h keylock.h kttcpio.h lockstat.h \
--	md.h vndvar.h spkrio.h
-+INCS=	biovar.h ccdvar.h cgdvar.h fssvar.h keylock.h kttcpio.h \
-+	lockstat.h md.h vndvar.h spkrio.h
- 
- .include <bsd.kinc.mk>
 diff --git a/sys/kern/files.kern b/sys/kern/files.kern
 index bf04337058c3..8f78c57a9a17 100644
 --- a/sys/kern/files.kern
@@ -382,10 +368,10 @@ index b05c3cfdfd55..bdd4988f4a72 100644
  	 * entire process.  We do so with an exit status of zero, because
 diff --git a/sys/kern/subr_kcov.c b/sys/kern/subr_kcov.c
 new file mode 100644
-index 000000000000..034fc999ab6c
+index 000000000000..06420c2a6bab
 --- /dev/null
 +++ b/sys/kern/subr_kcov.c
-@@ -0,0 +1,357 @@
+@@ -0,0 +1,347 @@
 +/*      $NetBSD$        */
 +
 +/*
@@ -443,7 +429,7 @@ index 000000000000..034fc999ab6c
 +	pid_t pid;
 +	bool active;
 +	bool exitfree;
-+	volatile kcov_int_t *buf; // To prevent race conditions
++	kcov_int_t *buf;
 +	size_t bufnent;
 +	size_t bufsize;
 +	TAILQ_ENTRY(kcov_desc) entry;
@@ -534,16 +520,6 @@ index 000000000000..034fc999ab6c
 +	mutex_init(&kcov_lock.ioctl_lock, MUTEX_DEFAULT, IPL_NONE);
 +	cv_init(&kcov_lock.cv, "kcov condition variable");
 +}
-+
-+/*
-+void
-+kcov_destroy(void)
-+{
-+	mutex_destroy(&kcov_lock.lock);
-+	mutex_destroy(&kcov_lock.read_lock);
-+	cv_destroy(&kcov_lock.cv);
-+}
-+*/
 +
 +static int
 +kcov_open(dev_t dev, int flag, int mode, struct lwp *l)
@@ -758,7 +734,7 @@ index 0232e39170c1..011c0026963d 100644
  	mman.h module.h mount.h mqueue.h msg.h msgbuf.h mtio.h mutex.h \
 diff --git a/sys/sys/kcov.h b/sys/sys/kcov.h
 new file mode 100644
-index 000000000000..c599abcafd65
+index 000000000000..a508ba373ea8
 --- /dev/null
 +++ b/sys/sys/kcov.h
 @@ -0,0 +1,49 @@
@@ -800,7 +776,7 @@ index 000000000000..c599abcafd65
 +#define KCOV_IOC_ENABLE		_IO('K', 2)
 +#define KCOV_IOC_DISABLE	_IO('K', 3)
 +
-+typedef uint64_t kcov_int_t;
++typedef volatile uint64_t kcov_int_t;
 +#define KCOV_ENTRY_SIZE sizeof(kcov_int_t)
 +
 +#ifdef _KERNEL
