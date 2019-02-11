@@ -95,12 +95,12 @@ kcov_allocbuf(kcov_t *kd, uint64_t nent)
 		return EINVAL;
 	}
 	if (kd->buf != NULL) {
-		kmem_free(kd->buf, kd->bufsize);
+		kmem_free(__UNVOLATILE(kd->buf), kd->bufsize);
 		kd->buf = NULL;
 		kd->bufnent = 0;
 	}
 
-	size = roundup(nent * sizeof(kcov_int_t), PAGE_SIZE);
+	size = roundup(nent * KCOV_ENTRY_SIZE, PAGE_SIZE);
 	kd->buf = (kcov_int_t *)uvm_km_alloc(kernel_map, size, 0,
 	    UVM_KMF_WIRED|UVM_KMF_ZERO);
 	if (kd->buf == NULL)
@@ -146,16 +146,6 @@ kcov_init(void)
 	mutex_init(&kcov_lock.ioctl_lock, MUTEX_DEFAULT, IPL_NONE);
 	cv_init(&kcov_lock.cv, "kcov condition variable");
 }
-
-/*
-void
-kcov_destroy(void)
-{
-	mutex_destroy(&kcov_lock.lock);
-	mutex_destroy(&kcov_lock.read_lock);
-	cv_destroy(&kcov_lock.cv);
-}
-*/
 
 static int
 kcov_open(dev_t dev, int flag, int mode, struct lwp *l)
@@ -274,14 +264,14 @@ kcov_mmap(dev_t dev, off_t offset, int prot)
 
 	kd = kcov_lookup_pid(curlwp->l_proc->p_pid);
 	if (kd == NULL) {
-		return (paddr_t)(-1);
+		return (paddr_t)-1;
 	}
-	if (offset < 0 || offset >= kd->bufnent * sizeof(kcov_int_t)) {
-		return (paddr_t)(-1);
+	if (offset < 0 || offset >= kd->bufnent * KCOV_ENTRY_SIZE || offset & PAGE_MASK) {
+		return (paddr_t)-1;
 	}
 	va = (vaddr_t)kd->buf + offset;
 	if (!pmap_extract(pmap_kernel(), va, &pa)) {
-		return (paddr_t)(-1);
+		return (paddr_t)-1;
 	}
 
 	return atop(pa);
